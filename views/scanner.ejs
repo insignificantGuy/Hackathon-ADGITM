@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/scanner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Div to show the scanner -->
+    <div id="scanner-container">
+        <div class="header">
+            <div>
+                <p style="margin-left:10px;"><%= message %></p>
+            </div>
+            <div style="margin-left:90%;">
+            <p><i class="fa fa-bitcoin" style="font-size:18px;color:yellow;"></i> <%= amount %></p>
+            </div>
+        </div>
+    </div>
+    <form>
+    <input type="button" id="btn" value="Start/Stop the scanner" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px;">
+    </form>
+    <section style="display:flex; margin-top:50px;">
+        <div class="section">
+            <h1 style="text-align:center;">Starbucks</h1>
+            <p style="text-align:center;">Get 30% off on Drinks above Rs.350</p>
+            <form>
+                <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+            </form>
+        </div>
+        <div class="section">
+                <h1 style="text-align:center;">Zomato</h1>
+                <p style="text-align:center;">Get 60% off on Food or Drinks worth Rs.450 or above.</p>
+                <form>
+                    <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                </form>
+        </div>
+        <div class="section">
+                <h1 style="text-align:center;">Channel</h1>
+                <p style="text-align:center;">Get 90% Channel Vouchers on purchase upto Rs5000</p>
+                <form>
+                    <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                </form>
+        </div>
+        
+    </section>
+    <section style="display:flex; margin-top:50px;">
+            <div class="section">
+                <h1 style="text-align:center;">Rom's Pizza</h1>
+                <p style="text-align:center;">Get 70% off on pizza above Rs.350 and upto Rs.900</p>
+                <form>
+                    <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                </form>
+            </div>
+            <div class="section">
+                    <h1 style="text-align:center;">MTNL</h1>
+                    <p style="text-align:center;">Get 100% cashback on MTNL bill on order upto Rs500.</p>
+                    <form>
+                        <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                    </form>
+            </div>
+            <div class="section">
+                    <h1 style="text-align:center;">Amazon Cashback offer</h1>
+                    <p style="text-align:center;">Get Rs500 amazon cashback offer on shopping before Year's end.</p>
+                    <form>
+                        <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                    </form>
+            </div>
+            
+        </section>
+        <section style="display:flex; margin-top:50px;">
+                <div class="section">
+                    <h1 style="text-align:center;">Burger King</h1>
+                    <p style="text-align:center;">Buy one burger and another burger and coke free.</p>
+                    <form>
+                        <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                    </form>
+                </div>
+                <div class="section">
+                        <h1 style="text-align:center;">Zomato</h1>
+                        <p style="text-align:center;">Get Zomato Gold membership @99 Rs.</p>
+                        <form>
+                            <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                        </form>
+                </div>
+                <div class="section">
+                        <h1 style="text-align:center;">Titan</h1>
+                        <p style="text-align:center;">Get upto 50% of discount on watches in the price range of Rs 3000-Rs5000(Both inclusive).</p>
+                        <form>
+                            <input type="button" id="btn" value="Redeem Now" style="height:40px; width:200px; background-color:white; border-decoration:none;border-radius:20px; margin-left:70px;">
+                        </form>
+                </div>
+                
+            </section>
+    <!-- Include the image-diff library -->
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+    <script>
+        var _scannerIsRunning = false;
+
+        function startScanner() {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#scanner-container'),
+                    constraints: {
+                        width: 480,
+                        height: 320,
+                        facingMode: "environment"
+                    },
+                },
+                decoder: {
+                    readers: [
+                        "code_128_reader",
+                        "ean_reader",
+                        "ean_8_reader",
+                        "code_39_reader",
+                        "code_39_vin_reader",
+                        "codabar_reader",
+                        "upc_reader",
+                        "upc_e_reader",
+                        "i2of5_reader"
+                    ],
+                    debug: {
+                        showCanvas: true,
+                        showPatches: true,
+                        showFoundPatches: true,
+                        showSkeleton: true,
+                        showLabels: true,
+                        showPatchLabels: true,
+                        showRemainingPatchLabels: true,
+                        boxFromPatches: {
+                            showTransformed: true,
+                            showTransformedBox: true,
+                            showBB: true
+                        }
+                    }
+                },
+
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                    return
+                }
+
+                console.log("Initialization finished. Ready to start");
+                Quagga.start();
+
+                // Set flag to is running
+                _scannerIsRunning = true;
+            });
+
+            Quagga.onProcessed(function (result) {
+                var drawingCtx = Quagga.canvas.ctx.overlay,
+                    drawingCanvas = Quagga.canvas.dom.overlay;
+
+                if (result) {
+                    if (result.boxes) {
+                        drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                        result.boxes.filter(function (box) {
+                            return box !== result.box;
+                        }).forEach(function (box) {
+                            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                        });
+                    }
+
+                    if (result.box) {
+                        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                    }
+
+                    if (result.codeResult && result.codeResult.code) {
+                        Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                    }
+                }
+            });
+
+
+            Quagga.onDetected(function (result) {
+                console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+            });
+        }
+
+
+        // Start/stop scanner
+        document.getElementById("btn").addEventListener("click", function () {
+            if (_scannerIsRunning) {
+                Quagga.stop();
+            } else {
+                startScanner();
+            }
+        }, false);
+    </script>
+</body>
+
+</html>
