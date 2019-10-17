@@ -44,6 +44,14 @@ const userschema = new Schema({
 
 const usermodel = mongoose.model("user", userschema);
 
+const codeschema = new Schema({
+
+  code:String,
+  type:String,
+});
+
+const codemodel=mongoose.model('code',codeschema);
+
 app.get('/', function (req, res) {
   res.render("index");
 });
@@ -83,7 +91,7 @@ app.post('/login', (req, res) => {
       if (_.isEmpty(doc)) {
         res.render('login', { mesg: "Please check email/password" })
       } else {
-        res.redirect('/scanner')
+        res.redirect('/scanner/'+doc.email)
       }
     })
   }
@@ -115,8 +123,53 @@ app.post('/register', (req, res) => {
   }
 })
 
-app.get('/scanner/:doc.email', (req, res) => {
-  res.render('scanner', { message: "null", amount: "null" })
+app.get('/scanner/:doc', (req, res) => {
+  let a= req.params.doc
+  usermodel.find({email:a}, function(err,docs){
+    if(err){
+      console.log(error)
+    }
+    else{
+      console.log(docs)
+    }
+  })
+})
+
+app.post('/scanner/:doc',(req,res)=>{
+  let b= req.params.doc
+  usermodel.find({email:a}, function(err,docs){
+    if(err){
+      console.log(error)
+    }
+    else{
+      global.a=docs
+      console.log(docs)
+    }
+  })
+  if(req.body.submit){
+    let newcode=new codemodel()
+    newcode.type=req.body.user
+    newcode.code=req.body.code
+    codemodel.find({code:req.body.code}, function(err,doces){
+      if(err){
+        console.log(err)
+      }
+      else if(_.isEmpty(doces)){
+        newcode.save(function (err) {
+          if (err) {
+            console.log(err)
+            return
+          }
+          else {
+            res.redirect('/scanner/'+ b)
+          }
+        });
+      }
+      else{
+        console.log("Code Exist")
+      }
+    })
+  }
 })
 
 app.listen(PORT, (req, res) => {

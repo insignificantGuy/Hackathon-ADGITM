@@ -5,27 +5,25 @@
     <title>Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/scanner.css">
+    <link rel="stylesheet" href="../css/scanner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <!-- Div to show the scanner -->
-    <div id="scanner-container">
         <div class="header">
             <div>
                 <p style="margin-left:10px;"><%= message %></p>
             </div>
             <div style="margin-left:90%;">
-            <p><i class="fa fa-bitcoin" style="font-size:18px;color:yellow;"></i> <%= amount %></p>
+            <p><i class="fa fa-bitcoin" style="font-size:18px;color:yellow;"></i> = <%= amount %></p>
             </div>
         </div>
-    </div>
     <div class="code">
         <form method="post">
-            <input type="hidden" name="user" value="user">
-            <input type="text" name="code" placeholder="Enter Your Code" style="height: 20px; width:80px;">
-            <button type="submit" style="height:20px; width:60px; border-style: none;">Submit</button> 
+            <input type="hidden" name="user" value="user" >
+            <input type="text" name="code" placeholder="Enter Your Code" style="height:40px; width:200px; border-radius:10px;">
+            <button type="submit" style="height:45px; width:100px; border-radius:10px;" name="submit" value="submit">Submit</button> 
         </form>
     </div>
     <section style="display:flex; margin-top:50px;">
